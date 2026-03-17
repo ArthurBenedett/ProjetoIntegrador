@@ -1,0 +1,13 @@
+RELATÓRIO DE DESEMPENHO
+------------------------------media dos aluno:
+Arthur Benedetti: 8.17
+Esther Scartozzoni: 5.00
+Fabio Henrique Pacheco: 5.83
+Giovanni Buscarino: 9.50
+
+alunos em recuperação:
+Esther Scartozzoni: 5.00
+Fabio Henrique Pacheco: 5.83
+
+bom aluno:
+Giovanni Buscarino: 9.50

@@ -1,44 +1,56 @@
-def processar_alunos(alunos):
-    print("sucesso")
+def validarNotas(notas):
+    if not isinstance(notas, list) or len(notas) == 0:
+        return False
+    for nota in notas:
+        if not isinstance(nota, (int, float)):
+            return False
+    return True
 
-def calcular_media(notas):
-    return sum(notas) / len(notas)
+#aqui eu caculo a media
+def calcularMedia(notas):
+    soma = 0
+    for nota in notas:
+        soma += nota
+    return soma / len(notas)
 
-def processar_alunos(alunos):
-    for nome, notas in alunos:
-        if notas:
-            media = calcular_media(notas)
-            print(f"{nome} - Média: {media:.2f}")
+# validacao da notas
+def processarAlunos(dados):
+    resultados = []
+    recuperacao = []
+    topStudent = None
+    maiorMedia = 0
 
-def calcular_media(notas):
-    return sum(notas) / len(notas)
-
-def validar_notas(notas):
-    return isinstance(notas, list) and len(notas) > 0
-
-def processar_alunos(alunos):
-    relatorio = []
-    top_aluno = None
-    maior_media = 0
-
-    for nome, notas in alunos:
-        if not validar_notas(notas):
-            relatorio.append(f"{nome} - Dados inválidos")
+    for nome, notas in dados:
+        if not validarNotas(notas):
+            print(f"Dados invalidos para {nome}")
             continue
 
-        media = calcular_media(notas)
+        media = calcularMedia(notas)
+        resultados.append((nome, media))
 
-        status = "Recuperação" if media < 7 else "Aprovado"
-        relatorio.append(f"{nome} - Média: {media:.2f} ({status})")
+        if media < 7:
+            recuperacao.append((nome, media))
 
-        if media > maior_media:
-            maior_media = media
-            top_aluno = nome
+        if media > maiorMedia:
+            maiorMedia = media
+            topStudent = (nome, media)
 
-    relatorio.append(f"\nTop Student: {top_aluno} com média {maior_media:.2f}")
+    return resultados, recuperacao, topStudent
 
-    with open("resultado.txt", "w") as f:
-        for linha in relatorio:
-            f.write(linha + "\n")
+#geracao do arquivo txt
+def gerarRelatorio(resultados, recuperacao, topStudent):
+    with open("resultado.txt", "w", encoding="utf-8") as f:
+        f.write("RELATÓRIO DE DESEMPENHO\n")
+        f.write("-"*30)
 
-    print("Relatório gerado com sucesso!")
+        f.write("media dos aluno:\n")
+        for nome, media in resultados:
+            f.write(f"{nome}: {media:.2f}\n")
+
+        f.write("\nalunos em recuperação:\n")
+        for nome, media in recuperacao:
+            f.write(f"{nome}: {media:.2f}\n")
+
+        f.write("\nbom aluno:\n")
+        if topStudent:
+            f.write(f"{topStudent[0]}: {topStudent[1]:.2f}\n")
