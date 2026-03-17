@@ -1,13 +1,15 @@
-from processamento import processar_alunos
+from processamento import processarAlunos, gerarRelatorio
 
-def main():
-    alunos = [
-        ("Arthur", [8, 7, 9]),
-        ("Maria", [5, 6, 5]),
-        ("João", [])
-    ]
+alunos = [
+    ("Arthur Benedetti", [8, 7.5, 9]),
+    ("Esther Scartozzoni", [4, 5, 6]),
+    ("Fabio Henrique Pacheco", [6, 5, 6.5]),
+    ("Bruno Pezzolato", []),
+    ("Giovanni Buscarino", [10, 9, 9.5]),
+]
 
-    processar_alunos(alunos)
+resultados, recuperacao, topStudent = processarAlunos(alunos)
 
-if __name__ == "__main__":
-    main()
+gerarRelatorio(resultados, recuperacao, topStudent)
+
+print("Relatorio gerado com sucesso!!!")
